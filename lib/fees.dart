@@ -327,10 +327,7 @@ class _FeesManagementPageState extends State<FeesManagementPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           _BackButton(
-                            onTap: () => Navigator.pushReplacementNamed(
-                              context,
-                              '/dashboard',
-                            ),
+                            onTap: null,
                           ),
                           const SizedBox(height: 16),
                           _Header(
@@ -616,7 +613,7 @@ class _NavItemState extends State<_NavItem> {
 }
 
 class _BackButton extends StatelessWidget {
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   const _BackButton({required this.onTap});
 

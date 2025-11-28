@@ -165,7 +165,7 @@ class _EventsManagementPageState extends State<EventsManagementPage> {
           ),
           actions: [
             TextButton(
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: null,
               child: const Text('Close'),
             ),
           ],
@@ -189,7 +189,7 @@ class _EventsManagementPageState extends State<EventsManagementPage> {
           content: Text('Delete ${event.name}?'),
           actions: [
             TextButton(
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: null,
               child: const Text('Cancel'),
             ),
             TextButton(

@@ -195,7 +195,7 @@ class _TeachersManagementPageState extends State<TeachersManagementPage> {
         content: Text('Delete ${teacher.name}?'),
         actions: [
           TextButton(
-            onPressed: Navigator.of(context).pop,
+            onPressed: null,
             child: const Text('Cancel'),
           ),
           TextButton(
@@ -204,7 +204,6 @@ class _TeachersManagementPageState extends State<TeachersManagementPage> {
                 _teachers.removeWhere((t) => t.id == teacher.id);
                 _filterTeachers(_searchQuery);
               });
-              Navigator.of(context).pop();
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Teacher deleted successfully!')),
               );
@@ -251,7 +250,7 @@ class _TeachersManagementPageState extends State<TeachersManagementPage> {
                               ),
                               IconButton(
                                 icon: const Icon(Icons.close),
-                                onPressed: () => Navigator.of(context).pop(),
+                                onPressed: null,
                               ),
                             ],
                           ),
@@ -382,7 +381,6 @@ class _TeachersManagementPageState extends State<TeachersManagementPage> {
                                           Color(0xFF764BA2)
                                         ],
                                         onTap: () {
-                                          Navigator.of(context).pop();
                                           _editTeacher(teacher);
                                         },
                                       ),
@@ -392,7 +390,7 @@ class _TeachersManagementPageState extends State<TeachersManagementPage> {
                                           Color(0xFF6C757D),
                                           Color(0xFF495057)
                                         ],
-                                        onTap: () => Navigator.of(context).pop(),
+                                        onTap: null,
                                       ),
                                     ],
                                   ),

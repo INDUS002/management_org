@@ -383,7 +383,7 @@ class _StudentsManagementPageState extends State<StudentsManagementPage> {
                       ),
                       IconButton(
                         icon: const Icon(Icons.close, color: Color(0xFFAAAAAA)),
-                        onPressed: () => Navigator.of(context).pop(),
+                        onPressed: null,
                       ),
                     ],
                   ),
@@ -427,7 +427,6 @@ class _StudentsManagementPageState extends State<StudentsManagementPage> {
                           ),
                         ),
                         onPressed: () {
-                          Navigator.of(context).pop();
                           _editStudent(student);
                         },
                         child: const Text('Edit Profile'),
@@ -445,7 +444,7 @@ class _StudentsManagementPageState extends State<StudentsManagementPage> {
                             vertical: 12,
                           ),
                         ),
-                        onPressed: () => Navigator.of(context).pop(),
+                        onPressed: null,
                         child: const Text('Close'),
                       ),
                     ],
@@ -607,7 +606,7 @@ class _StudentsManagementPageState extends State<StudentsManagementPage> {
           content: Text('Delete ${student.name}?'),
           actions: [
             TextButton(
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: null,
               child: const Text('Cancel'),
             ),
             TextButton(
@@ -616,7 +615,6 @@ class _StudentsManagementPageState extends State<StudentsManagementPage> {
                   _students.removeWhere((s) => s.id == student.id);
                 });
                 _filterStudents();
-                Navigator.of(context).pop();
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Student deleted successfully!')),
                 );

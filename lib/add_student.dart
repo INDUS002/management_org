@@ -82,7 +82,6 @@ class _AddStudentPageState extends State<AddStudentPage> {
       });
       await Future<void>.delayed(const Duration(seconds: 2));
       if (!mounted) return;
-      Navigator.of(context).maybePop();
     } catch (e) {
       if (!mounted) return;
       setState(() {
@@ -124,7 +123,7 @@ class _AddStudentPageState extends State<AddStudentPage> {
                       ),
                     ),
                     TextButton(
-                      onPressed: () => Navigator.of(context).maybePop(),
+                      onPressed: null,
                       style: TextButton.styleFrom(
                         backgroundColor: Colors.white.withOpacity(0.2),
                         foregroundColor: Colors.white,

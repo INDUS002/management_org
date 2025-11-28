@@ -166,7 +166,6 @@ class _EditStudentPageState extends State<EditStudentPage> {
       });
       await Future<void>.delayed(const Duration(seconds: 2));
       if (!mounted) return;
-      Navigator.of(context).maybePop();
     } catch (e) {
       if (!mounted) return;
       setState(() {
@@ -415,9 +414,7 @@ class _EditStudentPageState extends State<EditStudentPage> {
                                 ),
                                 const SizedBox(width: 15),
                                 ElevatedButton.icon(
-                                  onPressed: () =>
-                                      Navigator.pushReplacementNamed(
-                                          context, '/students'),
+                                  onPressed: null,
                                   icon: const Icon(Icons.arrow_back),
                                   label: const Text('Back to Students'),
                                   style: ElevatedButton.styleFrom(
@@ -1036,11 +1033,7 @@ class _EditStudentPageState extends State<EditStudentPage> {
                                         DropdownMenuItem(
                                             value: 'Route 4', child: Text('Route 4')),
                                       ],
-                                      onChanged: (value) {
-                                        setState(() {
-                                          _busRoute = value;
-                                        });
-                                      },
+                                      onChanged: null,
                                     ),
                                   ),
                                 ],
@@ -1106,9 +1099,7 @@ class _EditStudentPageState extends State<EditStudentPage> {
                                   ),
                                   const SizedBox(width: 15),
                                   ElevatedButton.icon(
-                                    onPressed: () =>
-                                        Navigator.pushReplacementNamed(
-                                            context, '/students'),
+                                    onPressed: null,
                                     icon: const Icon(Icons.cancel),
                                     label: const Text('Cancel'),
                                     style: ElevatedButton.styleFrom(

@@ -83,7 +83,6 @@ class _AddTeacherPageState extends State<AddTeacherPage> {
       });
       await Future<void>.delayed(const Duration(seconds: 2));
       if (!mounted) return;
-      Navigator.of(context).maybePop();
     } catch (_) {
       if (!mounted) return;
       setState(() {
@@ -425,7 +424,7 @@ class _AddTeacherPageState extends State<AddTeacherPage> {
                                     Color(0xFFFF6B6B),
                                     Color(0xFFEE5A52),
                                   ],
-                                  onTap: () => Navigator.of(context).maybePop(),
+                                  onTap: null,
                                 ),
                               ],
                             ),

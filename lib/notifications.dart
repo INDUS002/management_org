@@ -279,7 +279,6 @@ class _NotificationsManagementPageState
       _newTargetAudience = null;
     });
 
-    Navigator.pop(context);
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Notification sent successfully!')),
     );
@@ -379,7 +378,6 @@ class _NotificationsManagementPageState
                 _filterNotifications();
               });
             }
-            Navigator.pop(context);
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Notification updated!')),
             );
@@ -506,10 +504,7 @@ class _NotificationsManagementPageState
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           _BackButton(
-                            onTap: () => Navigator.pushReplacementNamed(
-                              context,
-                              '/dashboard',
-                            ),
+                            onTap: null,
                           ),
                           const SizedBox(height: 12),
                           _Header(
@@ -736,7 +731,7 @@ class _NavItemState extends State<_NavItem> {
 }
 
 class _BackButton extends StatelessWidget {
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   const _BackButton({required this.onTap});
 

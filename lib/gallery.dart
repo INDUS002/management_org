@@ -320,7 +320,7 @@ class _PhotoGalleryPageState extends State<PhotoGalleryPage> {
         content: Text('Are you sure you want to delete "${photo.title}"?'),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: null,
             child: const Text('Cancel'),
           ),
           ElevatedButton(
@@ -329,7 +329,6 @@ class _PhotoGalleryPageState extends State<PhotoGalleryPage> {
                 _allPhotos.remove(photo);
                 _filterPhotos();
               });
-              Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Photo deleted')),
               );
@@ -467,7 +466,7 @@ class _PhotoGalleryPageState extends State<PhotoGalleryPage> {
                       const SizedBox(width: 8),
                       IconButton(
                         icon: const Icon(Icons.close),
-                        onPressed: () => Navigator.pop(context),
+                        onPressed: null,
                       ),
                     ],
                   ),
@@ -733,50 +732,42 @@ class _Sidebar extends StatelessWidget {
                   _NavItem(
                     icon: '📊',
                     title: 'Dashboard',
-                    onTap: () =>
-                        Navigator.pushReplacementNamed(context, '/dashboard'),
+                    onTap: null,
                   ),
                   _NavItem(
                     icon: '👥',
                     title: 'Students',
-                    onTap: () =>
-                        Navigator.pushReplacementNamed(context, '/students'),
+                    onTap: null,
                   ),
                   _NavItem(
                     icon: '👨‍🏫',
                     title: 'Teachers',
-                    onTap: () =>
-                        Navigator.pushReplacementNamed(context, '/teachers'),
+                    onTap: null,
                   ),
                   _NavItem(
                     icon: '🚌',
                     title: 'Buses',
-                    onTap: () =>
-                        Navigator.pushReplacementNamed(context, '/buses'),
+                    onTap: null,
                   ),
                   _NavItem(
                     icon: '📅',
                     title: 'Events',
-                    onTap: () =>
-                        Navigator.pushReplacementNamed(context, '/events'),
+                    onTap: null,
                   ),
                   _NavItem(
                     icon: '🔔',
                     title: 'Notifications',
-                    onTap: () =>
-                        Navigator.pushReplacementNamed(context, '/notifications'),
+                    onTap: null,
                   ),
                   _NavItem(
                     icon: '📚',
                     title: 'Activities',
-                    onTap: () =>
-                        Navigator.pushReplacementNamed(context, '/activities'),
+                    onTap: null,
                   ),
                   _NavItem(
                     icon: '🏆',
                     title: 'Awards',
-                    onTap: () =>
-                        Navigator.pushReplacementNamed(context, '/awards'),
+                    onTap: null,
                   ),
                   _NavItem(
                     icon: '📸',
@@ -787,14 +778,12 @@ class _Sidebar extends StatelessWidget {
                   _NavItem(
                     icon: '🎓',
                     title: 'Admissions',
-                    onTap: () =>
-                        Navigator.pushReplacementNamed(context, '/admissions'),
+                    onTap: null,
                   ),
                   _NavItem(
                     icon: '📅',
                     title: 'Calendar',
-                    onTap: () =>
-                        Navigator.pushReplacementNamed(context, '/calendar'),
+                    onTap: null,
                   ),
                   _NavItem(
                     icon: '📋',
@@ -891,7 +880,7 @@ class _BackButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: onTap,
+      onPressed: null,
       style: ElevatedButton.styleFrom(
         backgroundColor: const Color(0xFF6C757D),
         foregroundColor: Colors.white,
@@ -945,7 +934,7 @@ class _Header extends StatelessWidget {
             children: [
               if (showMenuButton)
                 IconButton(
-                  onPressed: onMenuTap,
+                  onPressed: null,
                   icon: const Icon(Icons.menu, color: Colors.white),
                 ),
               const Column(
@@ -969,7 +958,7 @@ class _Header extends StatelessWidget {
             ],
           ),
           ElevatedButton.icon(
-            onPressed: onLogout,
+            onPressed: null,
             icon: const Icon(Icons.logout),
             label: const Text('Logout'),
             style: ElevatedButton.styleFrom(

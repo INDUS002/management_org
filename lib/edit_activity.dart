@@ -114,7 +114,6 @@ class _EditActivityPageState extends State<EditActivityPage> {
       });
       await Future<void>.delayed(const Duration(seconds: 2));
       if (!mounted) return;
-      Navigator.of(context).maybePop();
     } catch (e) {
       if (!mounted) return;
       setState(() {

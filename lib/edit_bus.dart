@@ -148,7 +148,6 @@ class _EditBusPageState extends State<EditBusPage> {
       });
       await Future<void>.delayed(const Duration(seconds: 2));
       if (!mounted) return;
-      Navigator.of(context).maybePop();
     } catch (e) {
       if (!mounted) return;
       setState(() {
@@ -404,9 +403,7 @@ class _EditBusPageState extends State<EditBusPage> {
                                 ),
                                 const SizedBox(width: 15),
                                 ElevatedButton.icon(
-                                  onPressed: () =>
-                                      Navigator.pushReplacementNamed(
-                                          context, '/buses'),
+                                  onPressed: null,
                                   icon: const Icon(Icons.arrow_back),
                                   label: const Text('Back to Buses'),
                                   style: ElevatedButton.styleFrom(
@@ -830,18 +827,7 @@ class _EditBusPageState extends State<EditBusPage> {
                                 children: [
                                   Expanded(
                                     child: InkWell(
-                                      onTap: () async {
-                                        final time = await showTimePicker(
-                                          context: context,
-                                          initialTime: _morningStartTime ??
-                                              const TimeOfDay(hour: 7, minute: 0),
-                                        );
-                                        if (time != null) {
-                                          setState(() {
-                                            _morningStartTime = time;
-                                          });
-                                        }
-                                      },
+                                      onTap: null,
                                       child: Container(
                                         padding: const EdgeInsets.all(16),
                                         decoration: BoxDecoration(
@@ -930,18 +916,7 @@ class _EditBusPageState extends State<EditBusPage> {
                                 children: [
                                   Expanded(
                                     child: InkWell(
-                                      onTap: () async {
-                                        final time = await showTimePicker(
-                                          context: context,
-                                          initialTime: _afternoonStartTime ??
-                                              const TimeOfDay(hour: 15, minute: 0),
-                                        );
-                                        if (time != null) {
-                                          setState(() {
-                                            _afternoonStartTime = time;
-                                          });
-                                        }
-                                      },
+                                      onTap: null,
                                       child: Container(
                                         padding: const EdgeInsets.all(16),
                                         decoration: BoxDecoration(
@@ -1086,9 +1061,7 @@ class _EditBusPageState extends State<EditBusPage> {
                                   ),
                                   const SizedBox(width: 15),
                                   ElevatedButton.icon(
-                                    onPressed: () =>
-                                        Navigator.pushReplacementNamed(
-                                            context, '/buses'),
+                                    onPressed: null,
                                     icon: const Icon(Icons.cancel),
                                     label: const Text('Cancel'),
                                     style: ElevatedButton.styleFrom(
