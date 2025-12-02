@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'dashboard.dart';
 
 void main() {
   runApp(const SchoolManagementApp());
@@ -333,7 +334,9 @@ class _CalendarManagementPageState extends State<CalendarManagementPage> {
                               padding: const EdgeInsets.only(bottom: 20),
                               child: IconButton(
                                 icon: const Icon(Icons.menu),
-                                onPressed: () {}, // Drawer logic placeholder
+                                onPressed: () => ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text('Menu tapped')),
+                                ),
                               ),
                             ),
                           _buildHeader(),
@@ -395,7 +398,7 @@ class _CalendarManagementPageState extends State<CalendarManagementPage> {
           Container(
             padding: const EdgeInsets.symmetric(vertical: 30),
             decoration: BoxDecoration(
-              border: Border(bottom: BorderSide(color: Colors.white.withOpacity(0.2))),
+              border: Border(bottom: BorderSide(color: Colors.white.withValues(alpha: 0.2))),
             ),
             child: const Center(
               child: Column(
@@ -462,11 +465,11 @@ class _CalendarManagementPageState extends State<CalendarManagementPage> {
               ),
               const SizedBox(width: 10),
               ElevatedButton.icon(
-                onPressed: () {}, 
+                onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => DashboardPage())), 
                 icon: const Icon(Icons.arrow_back, size: 16),
                 label: const Text("Back to Dashboard"),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white.withOpacity(0.2),
+                  backgroundColor: Colors.white.withValues(alpha: 0.2),
                   foregroundColor: Colors.white,
                   elevation: 0,
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
@@ -514,7 +517,7 @@ class _CalendarManagementPageState extends State<CalendarManagementPage> {
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Colors.grey.shade300),
-        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, 2))],
+        boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 10, offset: const Offset(0, 2))],
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -534,7 +537,7 @@ class _CalendarManagementPageState extends State<CalendarManagementPage> {
         color: Colors.white,
         borderRadius: BorderRadius.circular(15),
         border: Border.all(color: Colors.grey.shade300),
-        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 20, offset: const Offset(0, 4))],
+        boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.1), blurRadius: 20, offset: const Offset(0, 4))],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -814,7 +817,7 @@ class _CalendarManagementPageState extends State<CalendarManagementPage> {
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Colors.grey.shade300),
-        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, 2))],
+        boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 10, offset: const Offset(0, 2))],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1050,15 +1053,15 @@ class _NavItemWidgetState extends State<_NavItemWidget> {
         margin: const EdgeInsets.only(bottom: 10),
         decoration: BoxDecoration(
           color: widget.isActive
-              ? Colors.white.withOpacity(0.3)
+              ? Colors.white.withValues(alpha: 0.3)
               : _isHovered
-                  ? Colors.white.withOpacity(0.25)
+                  ? Colors.white.withValues(alpha: 0.25)
                   : Colors.transparent,
           borderRadius: BorderRadius.circular(8),
           boxShadow: _isHovered
               ? [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
+                    color: Colors.black.withValues(alpha: 0.1),
                     blurRadius: 8,
                     offset: const Offset(0, 2),
                   )
@@ -1077,7 +1080,26 @@ class _NavItemWidgetState extends State<_NavItemWidget> {
             ),
             child: Text(widget.title),
           ),
-          onTap: () {},
+          onTap: () {
+            final routeMap = {
+              '📊 Dashboard': '/dashboard',
+              '👥 Students': '/students',
+              '👨‍🏫 Teachers': '/teachers',
+              '🚌 Buses': '/buses',
+              '📅 Events': '/events',
+              '🔔 Notifications': '/notifications',
+              '📚 Activities': '/activities',
+              '🏆 Awards': '/awards',
+              '📸 Photo Gallery': '/gallery',
+              '📋 RTI Act': null,
+              '🎓 Admissions': '/admissions',
+              '📅 Calendar': '/calendar',
+            };
+            final route = routeMap[widget.title];
+            if (route != null && !widget.isActive) {
+              Navigator.pushReplacementNamed(context, route);
+            }
+          },
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),

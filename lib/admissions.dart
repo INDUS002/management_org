@@ -1,5 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'dashboard.dart';
+import 'students.dart';
+import 'teachers.dart';
+import 'buses.dart';
+import 'events.dart';
+import 'notifications.dart';
+import 'activities.dart';
+import 'awards.dart';
+import 'gallery.dart';
+import 'calendar.dart';
 
 void main() {
   runApp(const AdmissionsManagementPage());
@@ -349,18 +359,18 @@ class _AdmissionsScreenState extends State<AdmissionsScreen> {
                     child: ListView(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       children: [
-                        _buildNavItem("📊 Dashboard", false, () => Navigator.pushReplacementNamed(context, '/dashboard')),
-                        _buildNavItem("👥 Students", false, () => Navigator.pushReplacementNamed(context, '/students')),
-                        _buildNavItem("👨‍🏫 Teachers", false, () => Navigator.pushReplacementNamed(context, '/teachers')),
-                        _buildNavItem("🚌 Buses", false, () => Navigator.pushReplacementNamed(context, '/buses')),
-                        _buildNavItem("📅 Events", false, () => Navigator.pushReplacementNamed(context, '/events')),
-                        _buildNavItem("🔔 Notifications", false, () => Navigator.pushReplacementNamed(context, '/notifications')),
-                        _buildNavItem("📚 Activities", false, () => Navigator.pushReplacementNamed(context, '/activities')),
-                        _buildNavItem("🏆 Awards", false, () {}),
-                        _buildNavItem("📷 Photo Gallery", false, () => Navigator.pushReplacementNamed(context, '/gallery')),
+                        _buildNavItem("📊 Dashboard", false, () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => DashboardPage()))),
+                        _buildNavItem("👥 Students", false, () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const StudentsManagementPage()))),
+                        _buildNavItem("👨‍🏫 Teachers", false, () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const TeachersManagementPage()))),
+                        _buildNavItem("🚌 Buses", false, () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const BusesManagementPage()))),
+                        _buildNavItem("📅 Events", false, () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const EventsManagementPage()))),
+                        _buildNavItem("🔔 Notifications", false, () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const NotificationsManagementPage()))),
+                        _buildNavItem("📚 Activities", false, () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const ActivitiesManagementPage()))),
+                        _buildNavItem("🏆 Awards", false, () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const AwardsManagementPage()))),
+                        _buildNavItem("📷 Photo Gallery", false, () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const PhotoGalleryPage()))),
                         _buildNavItem("📄 RTI Act", false, () {}),
                         _buildNavItem("🎓 Admissions", true, () {}), // Active
-                        _buildNavItem("📅 Calendar", false, () {}),
+                        _buildNavItem("📅 Calendar", false, () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const CalendarManagementPage()))),
                       ],
                     ),
                   )
@@ -458,11 +468,11 @@ class _AdmissionsScreenState extends State<AdmissionsScreen> {
             ],
           ),
           ElevatedButton.icon(
-            onPressed: () {},
+            onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => DashboardPage())),
             icon: const Icon(Icons.arrow_back, size: 16),
             label: const Text("Back to Dashboard"),
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white.withOpacity(0.2),
+              backgroundColor: Colors.white.withValues(alpha: 0.2),
               foregroundColor: Colors.white,
               elevation: 0,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
@@ -522,7 +532,7 @@ class _AdmissionsScreenState extends State<AdmissionsScreen> {
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -769,7 +779,7 @@ class _AdmissionsScreenState extends State<AdmissionsScreen> {
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -909,7 +919,7 @@ class _AdmissionsScreenState extends State<AdmissionsScreen> {
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -997,9 +1007,9 @@ class _NavItemWithHoverState extends State<_NavItemWithHover> {
           ..translate(_isHovered ? 8.0 : 0.0, 0.0),
         decoration: BoxDecoration(
           color: widget.isActive
-              ? Colors.white.withOpacity(0.3)
+              ? Colors.white.withValues(alpha: 0.3)
               : _isHovered
-                  ? Colors.white.withOpacity(0.2)
+                  ? Colors.white.withValues(alpha: 0.2)
                   : Colors.transparent,
           borderRadius: BorderRadius.circular(8),
         ),
@@ -1066,7 +1076,7 @@ class _AdmissionCard extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: const Color(0xFFE0E0E0)),
-        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, 2))],
+        boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 10, offset: const Offset(0, 2))],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

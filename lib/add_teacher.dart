@@ -83,6 +83,7 @@ class _AddTeacherPageState extends State<AddTeacherPage> {
       });
       await Future<void>.delayed(const Duration(seconds: 2));
       if (!mounted) return;
+      Navigator.pushReplacementNamed(context, '/teachers');
     } catch (_) {
       if (!mounted) return;
       setState(() {
@@ -424,7 +425,7 @@ class _AddTeacherPageState extends State<AddTeacherPage> {
                                     Color(0xFFFF6B6B),
                                     Color(0xFFEE5A52),
                                   ],
-                                  onTap: null,
+                                  onTap: () => Navigator.pushReplacementNamed(context, '/teachers'),
                                 ),
                               ],
                             ),

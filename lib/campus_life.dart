@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:main_login/main.dart' as main_login;
+import 'dashboard.dart';
 
 void main() {
   runApp(const CampusLifeManagementPage());
@@ -507,8 +509,15 @@ class _CampusLifeManagementPageState extends State<CampusLifeManagementPage> {
           ),
           ElevatedButton(
             onPressed: () {
-              // Simulate navigation to login screen
               Navigator.of(context).pop();
+              // Navigate to main login page
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const main_login.LoginScreen(),
+                ),
+                (route) => false,
+              );
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: primaryColorDark,
@@ -605,17 +614,17 @@ class _CampusLifeManagementPageState extends State<CampusLifeManagementPage> {
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       children: [
                         _NavItem(
-                            icon: '📊', title: 'Dashboard', onTap: () {}),
+                            icon: '📊', title: 'Dashboard', onTap: () => Navigator.pushReplacementNamed(context, '/dashboard')),
                         _NavItem(
-                            icon: '👨‍🏫', title: 'Teachers', onTap: () {}),
+                            icon: '👨‍🏫', title: 'Teachers', onTap: () => Navigator.pushReplacementNamed(context, '/teachers')),
                         _NavItem(
-                            icon: '👥', title: 'Students', onTap: () {}),
-                        _NavItem(icon: '🚌', title: 'Buses', onTap: () {}),
-                        _NavItem(icon: '🎯', title: 'Activities', onTap: () {}),
-                        _NavItem(icon: '📅', title: 'Events', onTap: () {}),
-                        _NavItem(icon: '🏆', title: 'Awards', onTap: () {}),
-                        _NavItem(icon: '📸', title: 'Gallery', onTap: () {}),
-                        _NavItem(icon: '🎓', title: 'Admissions', onTap: () {}),
+                            icon: '👥', title: 'Students', onTap: () => Navigator.pushReplacementNamed(context, '/students')),
+                        _NavItem(icon: '🚌', title: 'Buses', onTap: () => Navigator.pushReplacementNamed(context, '/buses')),
+                        _NavItem(icon: '🎯', title: 'Activities', onTap: () => Navigator.pushReplacementNamed(context, '/activities')),
+                        _NavItem(icon: '📅', title: 'Events', onTap: () => Navigator.pushReplacementNamed(context, '/events')),
+                        _NavItem(icon: '🏆', title: 'Awards', onTap: () => Navigator.pushReplacementNamed(context, '/awards')),
+                        _NavItem(icon: '📸', title: 'Gallery', onTap: () => Navigator.pushReplacementNamed(context, '/gallery')),
+                        _NavItem(icon: '🎓', title: 'Admissions', onTap: () => Navigator.pushReplacementNamed(context, '/admissions')),
                         _NavItem(
                             icon: '🏫',
                             title: 'Campus Life',
@@ -642,11 +651,11 @@ class _CampusLifeManagementPageState extends State<CampusLifeManagementPage> {
                       Row(
                         children: [
                           ElevatedButton.icon(
-                            onPressed: () {}, 
+                            onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => DashboardPage())), 
                             icon: const Icon(Icons.arrow_back, size: 16),
                             label: const Text("Back to Dashboard"),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: primaryColorLight.withOpacity(0.1),
+                              backgroundColor: primaryColorLight.withValues(alpha: 0.1),
                               foregroundColor: primaryColorLight,
                               elevation: 0,
                               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
@@ -748,7 +757,7 @@ class _CampusLifeManagementPageState extends State<CampusLifeManagementPage> {
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -944,15 +953,15 @@ class _NavItemState extends State<_NavItem> {
         margin: const EdgeInsets.only(bottom: 10),
         decoration: BoxDecoration(
           color: widget.isActive
-              ? Colors.white.withOpacity(0.3)
+              ? Colors.white.withValues(alpha: 0.3)
               : _isHovered
-                  ? Colors.white.withOpacity(0.25)
+                  ? Colors.white.withValues(alpha: 0.25)
                   : Colors.transparent,
           borderRadius: BorderRadius.circular(8),
           boxShadow: _isHovered
               ? [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
+                    color: Colors.black.withValues(alpha: 0.1),
                     blurRadius: 8,
                     offset: const Offset(0, 2),
                   )
@@ -1110,7 +1119,7 @@ class _StatCard extends StatelessWidget {
       margin: EdgeInsets.zero,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       elevation: 5,
-      shadowColor: Colors.black.withOpacity(0.1),
+      shadowColor: Colors.black.withValues(alpha: 0.1),
       child: InkWell(
         onTap: () {},
         borderRadius: BorderRadius.circular(15),
@@ -1172,7 +1181,7 @@ class _FilterBar extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -1391,7 +1400,7 @@ class _CampusFeatureCard extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                       decoration: BoxDecoration(
-                        color: _getFeatureStatusColor(feature.status).withOpacity(0.15),
+                        color: _getFeatureStatusColor(feature.status).withValues(alpha: 0.15),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Text(

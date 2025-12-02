@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'dashboard.dart';
 
 class Teacher {
   final int id;
@@ -176,15 +177,11 @@ class _TeachersManagementPageState extends State<TeachersManagementPage> {
   }
 
   void _addTeacher() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Navigating to add teacher screen...')),
-    );
+    Navigator.pushNamed(context, '/add-teacher');
   }
 
   void _editTeacher(Teacher teacher) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Editing ${teacher.name}')),
-    );
+    Navigator.pushNamed(context, '/edit-teacher', arguments: teacher.id);
   }
 
   void _deleteTeacher(Teacher teacher) {
@@ -195,7 +192,7 @@ class _TeachersManagementPageState extends State<TeachersManagementPage> {
         content: Text('Delete ${teacher.name}?'),
         actions: [
           TextButton(
-            onPressed: null,
+            onPressed: () => Navigator.of(context).pop(),
             child: const Text('Cancel'),
           ),
           TextButton(
@@ -250,7 +247,7 @@ class _TeachersManagementPageState extends State<TeachersManagementPage> {
                               ),
                               IconButton(
                                 icon: const Icon(Icons.close),
-                                onPressed: null,
+                                onPressed: () => Navigator.of(context).pop(),
                               ),
                             ],
                           ),
@@ -390,7 +387,7 @@ class _TeachersManagementPageState extends State<TeachersManagementPage> {
                                           Color(0xFF6C757D),
                                           Color(0xFF495057)
                                         ],
-                                        onTap: null,
+                                        onTap: () => Navigator.of(context).pop(),
                                       ),
                                     ],
                                   ),
@@ -494,7 +491,20 @@ class _TeachersManagementPageState extends State<TeachersManagementPage> {
               icon: item['icon']!,
               label: item['label']!,
               isActive: item['label'] == 'Teachers',
-              onTap: () {},
+              onTap: () {
+                final routeMap = {
+                  'Dashboard': '/dashboard',
+                  'Teachers': '/teachers',
+                  'Students': '/students',
+                  'Buses': '/buses',
+                  'Activities': '/activities',
+                  'Events': '/events',
+                };
+                final route = routeMap[item['label']];
+                if (route != null) {
+                  Navigator.pushReplacementNamed(context, route);
+                }
+              },
             ),
         ],
       ),
@@ -718,30 +728,34 @@ class _TeachersManagementPageState extends State<TeachersManagementPage> {
   }
 
   Widget _buildBackButton() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [Color(0xFF6C757D), Color(0xFF495057)],
+    return InkWell(
+      onTap: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => DashboardPage())),
+      borderRadius: BorderRadius.circular(8),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            colors: [Color(0xFF6C757D), Color(0xFF495057)],
+          ),
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              color: const Color(0xFF495057).withValues(alpha: 0.3),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
         ),
-        borderRadius: BorderRadius.circular(8),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0xFF495057).withValues(alpha: 0.3),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Row(
-        children: const [
-          Icon(Icons.arrow_back, size: 16, color: Colors.white),
-          SizedBox(width: 8),
-          Text(
-            'Back to Dashboard',
-            style: TextStyle(color: Colors.white, fontSize: 14),
-          ),
-        ],
+        child: const Row(
+          children: [
+            Icon(Icons.arrow_back, size: 16, color: Colors.white),
+            SizedBox(width: 8),
+            Text(
+              'Back to Dashboard',
+              style: TextStyle(color: Colors.white, fontSize: 14),
+            ),
+          ],
+        ),
       ),
     );
   }

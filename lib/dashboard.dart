@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:main_login/main.dart' as main_login;
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -366,10 +367,35 @@ class _DashboardPageState extends State<DashboardPage> {
                             showMenuButton: !showSidebar,
                             onMenuTap: () =>
                                 _scaffoldKey.currentState?.openDrawer(),
-                            onLogout: () => ScaffoldMessenger.of(context)
-                                .showSnackBar(
-                              const SnackBar(content: Text('Logout tapped')),
-                            ),
+                            onLogout: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  title: const Text('Logout'),
+                                  content: const Text('Are you sure you want to logout?'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () => Navigator.pop(context),
+                                      child: const Text('Cancel'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                        // Navigate to main login page
+                                        Navigator.pushAndRemoveUntil(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => const main_login.LoginScreen(),
+                                          ),
+                                          (route) => false,
+                                        );
+                                      },
+                                      child: const Text('Logout', style: TextStyle(color: Colors.red)),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
                           ),
                           const SizedBox(height: 24),
                           _StatsGrid(
@@ -465,7 +491,7 @@ class _Sidebar extends StatelessWidget {
         gradient: gradient,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 20,
             offset: const Offset(2, 0),
           ),
@@ -485,7 +511,7 @@ class _Sidebar extends StatelessWidget {
                 ),
                 borderRadius: BorderRadius.circular(15),
                 border: Border.all(
-                  color: Colors.white.withOpacity(0.24),
+                  color: Colors.white.withValues(alpha: 0.24),
                   width: 1,
                 ),
               ),
@@ -518,7 +544,7 @@ class _Sidebar extends StatelessWidget {
                     icon: '📊',
                     title: 'Overview',
                     isActive: true,
-                    onTap: () {},
+                    onTap: () => Navigator.pushReplacementNamed(context, '/dashboard'),
                   ),
                   _NavItem(
                     icon: '👨‍🏫',
@@ -597,8 +623,8 @@ class _NavItem extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       decoration: BoxDecoration(
         color: isActive
-            ? Colors.white.withOpacity(0.3)
-            : Colors.white.withOpacity(0.1),
+            ? Colors.white.withValues(alpha: 0.3)
+            : Colors.white.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
       ),
       child: ListTile(
@@ -639,11 +665,11 @@ class _Header extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.95),
+        color: Colors.white.withValues(alpha: 0.95),
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 20,
             offset: const Offset(0, 5),
           ),
@@ -706,7 +732,35 @@ class _Header extends StatelessWidget {
               ),
               const SizedBox(width: 15),
               ElevatedButton.icon(
-                onPressed: onLogout,
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text('Logout'),
+                      content: const Text('Are you sure you want to logout?'),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: const Text('Cancel'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                            // Navigate to main login page
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const main_login.LoginScreen(),
+                              ),
+                              (route) => false,
+                            );
+                          },
+                          child: const Text('Logout', style: TextStyle(color: Colors.red)),
+                        ),
+                      ],
+                    ),
+                  );
+                },
                 icon: const Icon(Icons.logout),
                 label: const Text('Logout'),
                 style: ElevatedButton.styleFrom(
@@ -958,14 +1012,14 @@ class _StatCardState extends State<_StatCard> {
           transform: Matrix4.identity()
             ..translate(0.0, _isHovered ? -8.0 : 0.0),
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.95),
+            color: Colors.white.withValues(alpha: 0.95),
             borderRadius: BorderRadius.circular(15),
             border: Border(
               left: BorderSide(color: widget.color, width: 5),
             ),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(_isHovered ? 0.15 : 0.1),
+                color: Colors.black.withValues(alpha: _isHovered ? 0.15 : 0.1),
                 blurRadius: _isHovered ? 16 : 12,
                 offset: Offset(0, _isHovered ? 6 : 4),
               ),
@@ -1055,11 +1109,11 @@ class _RecentTeachersSection extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(25),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.95),
+        color: Colors.white.withValues(alpha: 0.95),
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
@@ -1139,11 +1193,11 @@ class _RecentStudentsSection extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(25),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.95),
+        color: Colors.white.withValues(alpha: 0.95),
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
@@ -1247,7 +1301,7 @@ class _ListItemState extends State<_ListItem> {
           decoration: BoxDecoration(
             color: _isHovered
                 ? null
-                : Colors.white.withOpacity(0.7),
+                : Colors.white.withValues(alpha: 0.7),
             gradient: _isHovered
                 ? const LinearGradient(
                     colors: [Color(0xFF667EEA), Color(0xFF764BA2)],
@@ -1314,11 +1368,11 @@ class _AnalyticsSection extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(25),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.95),
+        color: Colors.white.withValues(alpha: 0.95),
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
@@ -1374,7 +1428,7 @@ class _AttendanceChart extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -1459,7 +1513,7 @@ class _PerformanceChart extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -1548,11 +1602,11 @@ class _RecentActivitiesSection extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(25),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.95),
+        color: Colors.white.withValues(alpha: 0.95),
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
@@ -1652,7 +1706,7 @@ class _ActivityItemState extends State<_ActivityItem> {
         decoration: BoxDecoration(
           color: _isHovered
               ? null
-              : Colors.white.withOpacity(0.7),
+              : Colors.white.withValues(alpha: 0.7),
           gradient: _isHovered
               ? const LinearGradient(
                   colors: [Color(0xFF667EEA), Color(0xFF764BA2)],
@@ -1719,11 +1773,11 @@ class _RecentNotificationsSection extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(25),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.95),
+        color: Colors.white.withValues(alpha: 0.95),
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
@@ -1791,7 +1845,7 @@ class _NotificationItemState extends State<_NotificationItem> {
         decoration: BoxDecoration(
           color: _isHovered
               ? null
-              : Colors.white.withOpacity(0.7),
+              : Colors.white.withValues(alpha: 0.7),
           gradient: _isHovered
               ? const LinearGradient(
                   colors: [Color(0xFF667EEA), Color(0xFF764BA2)],
@@ -1859,11 +1913,11 @@ class _RecentAwardsSection extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(25),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.95),
+        color: Colors.white.withValues(alpha: 0.95),
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
@@ -1943,11 +1997,11 @@ class _GallerySection extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(25),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.95),
+        color: Colors.white.withValues(alpha: 0.95),
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
@@ -2057,7 +2111,7 @@ class _GalleryItemState extends State<_GalleryItem> {
             borderRadius: BorderRadius.circular(10),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.1),
+                color: Colors.black.withValues(alpha: 0.1),
                 blurRadius: 8,
                 offset: const Offset(0, 2),
               ),
@@ -2070,8 +2124,8 @@ class _GalleryItemState extends State<_GalleryItem> {
             children: [
               Container(
                 color: _isHovered
-                    ? const Color(0xFF667EEA).withOpacity(0.6)
-                    : const Color(0xFF667EEA).withOpacity(0.3),
+                    ? const Color(0xFF667EEA).withValues(alpha: 0.6)
+                    : const Color(0xFF667EEA).withValues(alpha: 0.3),
                 child: Center(
                   child: Text(
                     widget.item['title'] as String,
@@ -2096,7 +2150,7 @@ class _GalleryItemState extends State<_GalleryItem> {
                       end: Alignment.bottomCenter,
                       colors: [
                         Colors.transparent,
-                        Colors.black.withOpacity(0.7),
+                        Colors.black.withValues(alpha: 0.7),
                       ],
                     ),
                   ),
@@ -2132,11 +2186,11 @@ class _RecentAdmissionsSection extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(25),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.95),
+        color: Colors.white.withValues(alpha: 0.95),
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
@@ -2216,11 +2270,11 @@ class _ExtracurricularSection extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(25),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.95),
+        color: Colors.white.withValues(alpha: 0.95),
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
@@ -2257,9 +2311,7 @@ class _ExtracurricularSection extends StatelessWidget {
                 ),
                 child: ElevatedButton.icon(
                   onPressed: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Add new activity')),
-                    );
+                    Navigator.pushReplacementNamed(context, '/activities');
                   },
                   icon: const Icon(Icons.add, size: 16),
                   label: const Row(
@@ -2337,12 +2389,12 @@ class _ExtracurricularCardState extends State<_ExtracurricularCard> {
               : null,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: Colors.grey.withOpacity(0.2),
+            color: Colors.grey.withValues(alpha: 0.2),
             width: 1,
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 10,
               offset: const Offset(0, 2),
             ),
@@ -2421,11 +2473,11 @@ class _RTISection extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(25),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.95),
+        color: Colors.white.withValues(alpha: 0.95),
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
@@ -2462,8 +2514,9 @@ class _RTISection extends StatelessWidget {
                 ),
                 child: TextButton(
                   onPressed: () {
+                    // RTI page can be added later if needed
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('View all RTI requests')),
+                      const SnackBar(content: Text('RTI requests feature coming soon')),
                     );
                   },
                   style: TextButton.styleFrom(
@@ -2528,7 +2581,7 @@ class _RTIItemState extends State<_RTIItem> {
         decoration: BoxDecoration(
           color: _isHovered
               ? null
-              : Colors.white.withOpacity(0.7),
+              : Colors.white.withValues(alpha: 0.7),
           gradient: _isHovered
               ? const LinearGradient(
                   colors: [Color(0xFF667EEA), Color(0xFF764BA2)],

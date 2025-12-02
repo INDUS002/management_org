@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dashboard.dart';
 
 // --- Data Models ---
 
@@ -476,7 +477,7 @@ class _Sidebar extends StatelessWidget {
     return Container(
       width: 280,
       decoration: BoxDecoration(
-        color: const Color(0xFFFFFFFF).withOpacity(0.95),
+        color: const Color(0xFFFFFFFF).withValues(alpha: 0.95),
         boxShadow: const [
           BoxShadow(
             color: Colors.black12,
@@ -517,14 +518,14 @@ class _Sidebar extends StatelessWidget {
             child: ListView(
               padding: EdgeInsets.zero,
               children: [
-                _NavItem(icon: '📊', title: 'Dashboard', onTap: () => {}),
-                _NavItem(icon: '👨‍🏫', title: 'Teachers', onTap: () => {}),
-                _NavItem(icon: '👥', title: 'Students', onTap: () => {}),
-                _NavItem(icon: '🚌', title: 'Buses', onTap: () => {}),
+                _NavItem(icon: '📊', title: 'Dashboard', onTap: () => Navigator.pushReplacementNamed(context, '/dashboard')),
+                _NavItem(icon: '👨‍🏫', title: 'Teachers', onTap: () => Navigator.pushReplacementNamed(context, '/teachers')),
+                _NavItem(icon: '👥', title: 'Students', onTap: () => Navigator.pushReplacementNamed(context, '/students')),
+                _NavItem(icon: '🚌', title: 'Buses', onTap: () => Navigator.pushReplacementNamed(context, '/buses')),
                 const _NavItem(icon: '🛣️', title: 'Bus Routes', isActive: true), 
-                _NavItem(icon: '🎯', title: 'Activities', onTap: () => {}),
-                _NavItem(icon: '📅', title: 'Events', onTap: () => {}),
-                _NavItem(icon: '🔔', title: 'Notifications', onTap: () => {}),
+                _NavItem(icon: '🎯', title: 'Activities', onTap: () => Navigator.pushReplacementNamed(context, '/activities')),
+                _NavItem(icon: '📅', title: 'Events', onTap: () => Navigator.pushReplacementNamed(context, '/events')),
+                _NavItem(icon: '🔔', title: 'Notifications', onTap: () => Navigator.pushReplacementNamed(context, '/notifications')),
               ],
             ),
           ),
@@ -674,7 +675,7 @@ class _Header extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
       decoration: BoxDecoration(
-        color: const Color(0xFFFFFFFF).withOpacity(0.95),
+        color: const Color(0xFFFFFFFF).withValues(alpha: 0.95),
         borderRadius: BorderRadius.circular(15),
         boxShadow: const [
           BoxShadow(
@@ -702,11 +703,7 @@ class _Header extends StatelessWidget {
               if (!isMobile)
                 const _UserInfo(),
               ElevatedButton.icon(
-                onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text('Going Back to Dashboard...')));
-                  // In a real app: Navigator.pop(context) or navigate to dashboard route.
-                },
+                onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => DashboardPage())),
                 icon: const Text('←', style: TextStyle(fontSize: 18)),
                 label: const Text('Back to Dashboard'),
                 style: ElevatedButton.styleFrom(
@@ -805,7 +802,7 @@ class _StatCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: const Color(0xFFFFFFFF).withOpacity(0.95),
+        color: const Color(0xFFFFFFFF).withValues(alpha: 0.95),
         borderRadius: BorderRadius.circular(15),
         boxShadow: const [
           BoxShadow(
@@ -865,7 +862,7 @@ class _ActionsBar extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: const Color(0xFFFFFFFF).withOpacity(0.95),
+        color: const Color(0xFFFFFFFF).withValues(alpha: 0.95),
         borderRadius: BorderRadius.circular(15),
         boxShadow: const [
           BoxShadow(
@@ -1084,7 +1081,7 @@ class _RouteCard extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFFFFFFFF).withOpacity(0.95),
+        color: const Color(0xFFFFFFFF).withValues(alpha: 0.95),
         borderRadius: BorderRadius.circular(15),
         boxShadow: const [
           BoxShadow(
@@ -1143,7 +1140,7 @@ class _RouteCard extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8, vertical: 4),
                         decoration: BoxDecoration(
-                          color: statusColor.withOpacity(0.1),
+                          color: statusColor.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Text(
@@ -1162,7 +1159,7 @@ class _RouteCard extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(15),
               decoration: BoxDecoration(
-                color: const Color(0xFF667eea).withOpacity(0.05),
+                color: const Color(0xFF667eea).withValues(alpha: 0.05),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Column(

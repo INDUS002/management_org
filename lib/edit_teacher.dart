@@ -108,6 +108,7 @@ class _EditTeacherPageState extends State<EditTeacherPage> {
       });
       await Future<void>.delayed(const Duration(seconds: 2));
       if (!mounted) return;
+      Navigator.pushReplacementNamed(context, '/teachers');
     } catch (e) {
       if (!mounted) return;
       setState(() {
@@ -242,7 +243,7 @@ class _Sidebar extends StatelessWidget {
         gradient: gradient,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 20,
             offset: const Offset(2, 0),
           ),
@@ -339,11 +340,11 @@ class _Header extends StatelessWidget {
       margin: const EdgeInsets.all(20),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.95),
+        color: Colors.white.withValues(alpha: 0.95),
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 20,
             offset: const Offset(0, 5),
           ),
@@ -472,11 +473,11 @@ class _FormCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 20),
       padding: const EdgeInsets.all(30),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.95),
+        color: Colors.white.withValues(alpha: 0.95),
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 20,
             offset: const Offset(0, 5),
           ),
@@ -835,15 +836,15 @@ class _NavItemState extends State<_NavItem> {
         margin: const EdgeInsets.only(bottom: 10),
         decoration: BoxDecoration(
           color: widget.isActive
-              ? Colors.white.withOpacity(0.3)
+              ? Colors.white.withValues(alpha: 0.3)
               : _isHovered
-                  ? Colors.white.withOpacity(0.25)
+                  ? Colors.white.withValues(alpha: 0.25)
                   : Colors.transparent,
           borderRadius: BorderRadius.circular(8),
           boxShadow: _isHovered
               ? [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
+                    color: Colors.black.withValues(alpha: 0.1),
                     blurRadius: 8,
                     offset: const Offset(0, 2),
                   )

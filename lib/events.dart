@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'dashboard.dart';
 
 class Event {
   final int id;
@@ -165,7 +166,7 @@ class _EventsManagementPageState extends State<EventsManagementPage> {
           ),
           actions: [
             TextButton(
-              onPressed: null,
+              onPressed: () => Navigator.of(context).pop(),
               child: const Text('Close'),
             ),
           ],
@@ -175,8 +176,9 @@ class _EventsManagementPageState extends State<EventsManagementPage> {
   }
 
   void _editEvent(Event event) {
+    // Navigate to edit event page (can be created later)
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Editing ${event.name}...')),
+      SnackBar(content: Text('Edit event feature coming soon for ${event.name}')),
     );
   }
 
@@ -189,7 +191,7 @@ class _EventsManagementPageState extends State<EventsManagementPage> {
           content: Text('Delete ${event.name}?'),
           actions: [
             TextButton(
-              onPressed: null,
+              onPressed: () => Navigator.of(context).pop(),
               child: const Text('Cancel'),
             ),
             TextButton(
@@ -215,8 +217,9 @@ class _EventsManagementPageState extends State<EventsManagementPage> {
   }
 
   void _addEvent() {
+    // Navigate to add event page (can be created later)
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Navigating to add event page...')),
+      const SnackBar(content: Text('Add event feature coming soon')),
     );
   }
 
@@ -306,7 +309,20 @@ class _EventsManagementPageState extends State<EventsManagementPage> {
               icon: item['icon']!,
               label: item['label']!,
               isActive: item['label'] == 'Events',
-              onTap: () {},
+              onTap: () {
+                final routeMap = {
+                  'Dashboard': '/dashboard',
+                  'Teachers': '/teachers',
+                  'Students': '/students',
+                  'Buses': '/buses',
+                  'Activities': '/activities',
+                  'Events': '/events',
+                };
+                final route = routeMap[item['label']];
+                if (route != null) {
+                  Navigator.pushReplacementNamed(context, route);
+                }
+              },
             ),
         ],
       ),
@@ -572,30 +588,34 @@ class _EventsManagementPageState extends State<EventsManagementPage> {
   }
 
   Widget _buildBackButton() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [Color(0xFF6C757D), Color(0xFF495057)],
+    return InkWell(
+      onTap: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => DashboardPage())),
+      borderRadius: BorderRadius.circular(8),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            colors: [Color(0xFF6C757D), Color(0xFF495057)],
+          ),
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              color: const Color(0xFF495057).withValues(alpha: 0.3),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
         ),
-        borderRadius: BorderRadius.circular(8),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0xFF495057).withValues(alpha: 0.3),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Row(
-        children: const [
-          Icon(Icons.arrow_back, color: Colors.white, size: 16),
-          SizedBox(width: 8),
-          Text(
-            'Back to Dashboard',
-            style: TextStyle(color: Colors.white, fontSize: 14),
-          ),
-        ],
+        child: const Row(
+          children: [
+            Icon(Icons.arrow_back, color: Colors.white, size: 16),
+            SizedBox(width: 8),
+            Text(
+              'Back to Dashboard',
+              style: TextStyle(color: Colors.white, fontSize: 14),
+            ),
+          ],
+        ),
       ),
     );
   }

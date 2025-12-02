@@ -257,7 +257,7 @@ class _EditStudentPageState extends State<EditStudentPage> {
               gradient: gradient,
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
+                  color: Colors.black.withValues(alpha: 0.1),
                   blurRadius: 20,
                   offset: const Offset(2, 0),
                 ),
@@ -353,11 +353,11 @@ class _EditStudentPageState extends State<EditStudentPage> {
                         margin: const EdgeInsets.all(20),
                         padding: const EdgeInsets.all(20),
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.95),
+                          color: Colors.white.withValues(alpha: 0.95),
                           borderRadius: BorderRadius.circular(15),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.1),
+                              color: Colors.black.withValues(alpha: 0.1),
                               blurRadius: 20,
                               offset: const Offset(0, 5),
                             ),
@@ -414,7 +414,7 @@ class _EditStudentPageState extends State<EditStudentPage> {
                                 ),
                                 const SizedBox(width: 15),
                                 ElevatedButton.icon(
-                                  onPressed: null,
+                                  onPressed: () => Navigator.pushReplacementNamed(context, '/students'),
                                   icon: const Icon(Icons.arrow_back),
                                   label: const Text('Back to Students'),
                                   style: ElevatedButton.styleFrom(
@@ -434,11 +434,11 @@ class _EditStudentPageState extends State<EditStudentPage> {
                         margin: const EdgeInsets.symmetric(horizontal: 20),
                         padding: const EdgeInsets.all(30),
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.95),
+                          color: Colors.white.withValues(alpha: 0.95),
                           borderRadius: BorderRadius.circular(15),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.1),
+                              color: Colors.black.withValues(alpha: 0.1),
                               blurRadius: 20,
                               offset: const Offset(0, 5),
                             ),
@@ -568,7 +568,7 @@ class _EditStudentPageState extends State<EditStudentPage> {
                                       ),
                                       boxShadow: [
                                         BoxShadow(
-                                          color: Colors.black.withOpacity(0.1),
+                                          color: Colors.black.withValues(alpha: 0.1),
                                           blurRadius: 10,
                                         ),
                                       ],
@@ -594,7 +594,7 @@ class _EditStudentPageState extends State<EditStudentPage> {
                                                 '📷',
                                                 style: TextStyle(
                                                   fontSize: 24,
-                                                  color: Colors.white.withOpacity(0.9),
+                                                  color: Colors.white.withValues(alpha: 0.9),
                                                 ),
                                               ),
                                             ],
@@ -1033,7 +1033,11 @@ class _EditStudentPageState extends State<EditStudentPage> {
                                         DropdownMenuItem(
                                             value: 'Route 4', child: Text('Route 4')),
                                       ],
-                                      onChanged: null,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _busRoute = value;
+                                        });
+                                      },
                                     ),
                                   ),
                                 ],
@@ -1099,7 +1103,7 @@ class _EditStudentPageState extends State<EditStudentPage> {
                                   ),
                                   const SizedBox(width: 15),
                                   ElevatedButton.icon(
-                                    onPressed: null,
+                                    onPressed: () => Navigator.pushReplacementNamed(context, '/students'),
                                     icon: const Icon(Icons.cancel),
                                     label: const Text('Cancel'),
                                     style: ElevatedButton.styleFrom(
@@ -1159,15 +1163,15 @@ class _NavItemState extends State<_NavItem> {
         margin: const EdgeInsets.only(bottom: 10),
         decoration: BoxDecoration(
           color: widget.isActive
-              ? Colors.white.withOpacity(0.3)
+              ? Colors.white.withValues(alpha: 0.3)
               : _isHovered
-                  ? Colors.white.withOpacity(0.2)
+                  ? Colors.white.withValues(alpha: 0.2)
                   : Colors.transparent,
           borderRadius: BorderRadius.circular(8),
           boxShadow: _isHovered
               ? [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
+                    color: Colors.black.withValues(alpha: 0.1),
                     blurRadius: 8,
                     offset: const Offset(0, 2),
                   )

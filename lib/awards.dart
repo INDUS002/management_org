@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'dashboard.dart';
 
 void main() {
   runApp(const AwardsManagementPage());
@@ -258,7 +259,28 @@ class _AwardsScreenState extends State<AwardsScreen> {
     return _NavItemWithHover(
       title: title,
       isActive: isActive,
-      onTap: () {},
+      onTap: () {
+        // Extract title without emoji (remove emoji and leading space)
+        final titleWithoutEmoji = title.replaceAll(RegExp(r'^[^\s]+\s+'), '').trim();
+        final routeMap = {
+          'Dashboard': '/dashboard',
+          'Students': '/students',
+          'Teachers': '/teachers',
+          'Buses': '/buses',
+          'Events': '/events',
+          'Notifications': '/notifications',
+          'Activities': '/activities',
+          'Awards': '/awards',
+          'Photo Gallery': '/gallery',
+          'Admissions': '/admissions',
+          'Calendar': '/calendar',
+          'RTI Act': null, // No route for RTI Act
+        };
+        final route = routeMap[titleWithoutEmoji];
+        if (route != null && !isActive) {
+          Navigator.pushReplacementNamed(context, route);
+        }
+      },
     );
   }
 
@@ -291,11 +313,11 @@ class _AwardsScreenState extends State<AwardsScreen> {
             ],
           ),
           ElevatedButton.icon(
-            onPressed: () {},
+            onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => DashboardPage())),
             icon: const Icon(Icons.arrow_back, size: 16),
             label: const Text("Back to Dashboard"),
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white.withOpacity(0.2),
+              backgroundColor: Colors.white.withValues(alpha: 0.2),
               foregroundColor: Colors.white,
               elevation: 0,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
@@ -338,7 +360,7 @@ class _AwardsScreenState extends State<AwardsScreen> {
         border: Border.all(color: const Color(0xFFE0E0E0)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
           )
@@ -389,7 +411,7 @@ class _AwardsScreenState extends State<AwardsScreen> {
         borderRadius: BorderRadius.circular(15),
         border: Border.all(color: const Color(0xFFE0E0E0)),
         boxShadow: [
-          BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 20, offset: const Offset(0, 4))
+          BoxShadow(color: Colors.black.withValues(alpha: 0.1), blurRadius: 20, offset: const Offset(0, 4))
         ],
       ),
       child: Column(
@@ -467,7 +489,7 @@ class _AwardsScreenState extends State<AwardsScreen> {
         borderRadius: BorderRadius.circular(15),
         border: Border.all(color: const Color(0xFFE0E0E0)),
         boxShadow: [
-          BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 20, offset: const Offset(0, 4))
+          BoxShadow(color: Colors.black.withValues(alpha: 0.1), blurRadius: 20, offset: const Offset(0, 4))
         ],
       ),
       child: Column(
@@ -576,7 +598,7 @@ class _AwardsScreenState extends State<AwardsScreen> {
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: const Color(0xFFE0E0E0)),
         boxShadow: [
-          BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, 2))
+          BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 10, offset: const Offset(0, 2))
         ],
       ),
       child: Column(
@@ -776,9 +798,9 @@ class _NavItemWithHoverState extends State<_NavItemWithHover> {
           ..translate(_isHovered ? 8.0 : 0.0, 0.0),
         decoration: BoxDecoration(
           color: widget.isActive
-              ? Colors.white.withOpacity(0.3)
+              ? Colors.white.withValues(alpha: 0.3)
               : _isHovered
-                  ? Colors.white.withOpacity(0.2)
+                  ? Colors.white.withValues(alpha: 0.2)
                   : Colors.transparent,
           borderRadius: BorderRadius.circular(8),
         ),

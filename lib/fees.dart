@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:main_login/main.dart' as main_login;
+import 'dashboard.dart';
 
 enum FeeStatus { paid, pending, overdue }
 
@@ -327,17 +329,42 @@ class _FeesManagementPageState extends State<FeesManagementPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           _BackButton(
-                            onTap: null,
+                            onTap: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => DashboardPage())),
                           ),
                           const SizedBox(height: 16),
                           _Header(
                             showMenuButton: !showSidebar,
                             onMenuTap: () =>
                                 _scaffoldKey.currentState?.openDrawer(),
-                            onLogout: () => ScaffoldMessenger.of(context)
-                                .showSnackBar(
-                              const SnackBar(content: Text('Logout tapped')),
-                            ),
+                            onLogout: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  title: const Text('Logout'),
+                                  content: const Text('Are you sure you want to logout?'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () => Navigator.pop(context),
+                                      child: const Text('Cancel'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                        // Navigate to main login page
+                                        Navigator.pushAndRemoveUntil(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => const main_login.LoginScreen(),
+                                          ),
+                                          (route) => false,
+                                        );
+                                      },
+                                      child: const Text('Logout', style: TextStyle(color: Colors.red)),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
                           ),
                           const SizedBox(height: 24),
                           _StatsOverview(stats: stats),
@@ -437,7 +464,7 @@ class _Sidebar extends StatelessWidget {
         gradient: gradient,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 20,
             offset: const Offset(2, 0),
           ),
@@ -573,15 +600,15 @@ class _NavItemState extends State<_NavItem> {
         margin: const EdgeInsets.only(bottom: 10),
         decoration: BoxDecoration(
           color: widget.isActive
-              ? Colors.white.withOpacity(0.3)
+              ? Colors.white.withValues(alpha: 0.3)
               : _isHovered
-                  ? Colors.white.withOpacity(0.25)
+                  ? Colors.white.withValues(alpha: 0.25)
                   : Colors.transparent,
           borderRadius: BorderRadius.circular(12),
           boxShadow: _isHovered
               ? [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
+                    color: Colors.black.withValues(alpha: 0.1),
                     blurRadius: 8,
                     offset: const Offset(0, 2),
                   )
@@ -655,11 +682,11 @@ class _Header extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.95),
+        color: Colors.white.withValues(alpha: 0.95),
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 20,
             offset: const Offset(0, 5),
           ),
@@ -793,11 +820,11 @@ class _StatCard extends StatelessWidget {
       width: 200,
       padding: const EdgeInsets.all(25),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.95),
+        color: Colors.white.withValues(alpha: 0.95),
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
@@ -872,11 +899,11 @@ class _AddFeeSection extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(25),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.95),
+        color: Colors.white.withValues(alpha: 0.95),
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
@@ -1089,11 +1116,11 @@ class _SearchFilterSection extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(25),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.95),
+        color: Colors.white.withValues(alpha: 0.95),
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
@@ -1265,7 +1292,7 @@ class _FeeCard extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -1341,7 +1368,7 @@ class _FeeCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
             decoration: BoxDecoration(
-              color: statusColor.withOpacity(0.2),
+              color: statusColor.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Text(

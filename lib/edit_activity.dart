@@ -198,10 +198,10 @@ class _EditActivityPageState extends State<EditActivityPage> {
           Container(
             width: 250,
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.95),
+              color: Colors.white.withValues(alpha: 0.95),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.white.withOpacity(0.1),
+                  color: Colors.white.withValues(alpha: 0.1),
                   blurRadius: 20,
                   offset: const Offset(2, 0),
                 ),
@@ -297,11 +297,11 @@ class _EditActivityPageState extends State<EditActivityPage> {
                         margin: const EdgeInsets.all(20),
                         padding: const EdgeInsets.all(20),
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.95),
+                          color: Colors.white.withValues(alpha: 0.95),
                           borderRadius: BorderRadius.circular(15),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.1),
+                              color: Colors.black.withValues(alpha: 0.1),
                               blurRadius: 20,
                               offset: const Offset(0, 5),
                             ),
@@ -380,11 +380,11 @@ class _EditActivityPageState extends State<EditActivityPage> {
                         margin: const EdgeInsets.symmetric(horizontal: 20),
                         padding: const EdgeInsets.all(30),
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.95),
+                          color: Colors.white.withValues(alpha: 0.95),
                           borderRadius: BorderRadius.circular(15),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.1),
+                              color: Colors.black.withValues(alpha: 0.1),
                               blurRadius: 20,
                               offset: const Offset(0, 5),
                             ),
@@ -923,15 +923,15 @@ class _NavItemState extends State<_NavItem> {
         margin: const EdgeInsets.only(bottom: 10),
         decoration: BoxDecoration(
           color: widget.isActive
-              ? const Color(0xFF667EEA).withOpacity(0.3)
+              ? const Color(0xFF667EEA).withValues(alpha: 0.3)
               : _isHovered
-                  ? const Color(0xFF667EEA).withOpacity(0.25)
+                  ? const Color(0xFF667EEA).withValues(alpha: 0.25)
                   : Colors.transparent,
           borderRadius: BorderRadius.circular(8),
           boxShadow: _isHovered
               ? [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
+                    color: Colors.black.withValues(alpha: 0.1),
                     blurRadius: 8,
                     offset: const Offset(0, 2),
                   )

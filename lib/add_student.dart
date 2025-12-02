@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'dashboard.dart';
 
 class AddStudentPage extends StatefulWidget {
   const AddStudentPage({super.key});
@@ -82,6 +83,7 @@ class _AddStudentPageState extends State<AddStudentPage> {
       });
       await Future<void>.delayed(const Duration(seconds: 2));
       if (!mounted) return;
+      Navigator.pushReplacementNamed(context, '/students');
     } catch (e) {
       if (!mounted) return;
       setState(() {
@@ -123,12 +125,12 @@ class _AddStudentPageState extends State<AddStudentPage> {
                       ),
                     ),
                     TextButton(
-                      onPressed: null,
+                      onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => DashboardPage())),
                       style: TextButton.styleFrom(
-                        backgroundColor: Colors.white.withOpacity(0.2),
+                        backgroundColor: Colors.white.withValues(alpha: 0.2),
                         foregroundColor: Colors.white,
                         side: BorderSide(
-                          color: Colors.white.withOpacity(0.3),
+                          color: Colors.white.withValues(alpha: 0.3),
                         ),
                         padding: const EdgeInsets.symmetric(
                             horizontal: 16, vertical: 8),
@@ -240,7 +242,7 @@ class _AddStudentPageState extends State<AddStudentPage> {
                           borderRadius: BorderRadius.circular(15),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.08),
+                              color: Colors.black.withValues(alpha: 0.08),
                               blurRadius: 20,
                               offset: const Offset(0, 5),
                             ),
@@ -268,7 +270,7 @@ class _AddStudentPageState extends State<AddStudentPage> {
                                       ),
                                       boxShadow: [
                                         BoxShadow(
-                                          color: Colors.black.withOpacity(0.1),
+                                          color: Colors.black.withValues(alpha: 0.1),
                                           blurRadius: 10,
                                         ),
                                       ],

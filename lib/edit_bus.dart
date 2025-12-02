@@ -246,7 +246,7 @@ class _EditBusPageState extends State<EditBusPage> {
               gradient: gradient,
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
+                  color: Colors.black.withValues(alpha: 0.1),
                   blurRadius: 20,
                   offset: const Offset(2, 0),
                 ),
@@ -342,11 +342,11 @@ class _EditBusPageState extends State<EditBusPage> {
                         margin: const EdgeInsets.all(20),
                         padding: const EdgeInsets.all(20),
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.95),
+                          color: Colors.white.withValues(alpha: 0.95),
                           borderRadius: BorderRadius.circular(15),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.1),
+                              color: Colors.black.withValues(alpha: 0.1),
                               blurRadius: 20,
                               offset: const Offset(0, 5),
                             ),
@@ -403,7 +403,7 @@ class _EditBusPageState extends State<EditBusPage> {
                                 ),
                                 const SizedBox(width: 15),
                                 ElevatedButton.icon(
-                                  onPressed: null,
+                                  onPressed: () => Navigator.pushReplacementNamed(context, '/buses'),
                                   icon: const Icon(Icons.arrow_back),
                                   label: const Text('Back to Buses'),
                                   style: ElevatedButton.styleFrom(
@@ -423,11 +423,11 @@ class _EditBusPageState extends State<EditBusPage> {
                         margin: const EdgeInsets.symmetric(horizontal: 20),
                         padding: const EdgeInsets.all(30),
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.95),
+                          color: Colors.white.withValues(alpha: 0.95),
                           borderRadius: BorderRadius.circular(15),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.1),
+                              color: Colors.black.withValues(alpha: 0.1),
                               blurRadius: 20,
                               offset: const Offset(0, 5),
                             ),
@@ -827,7 +827,17 @@ class _EditBusPageState extends State<EditBusPage> {
                                 children: [
                                   Expanded(
                                     child: InkWell(
-                                      onTap: null,
+                                      onTap: () async {
+                                        final time = await showTimePicker(
+                                          context: context,
+                                          initialTime: _morningStartTime ?? TimeOfDay.now(),
+                                        );
+                                        if (time != null) {
+                                          setState(() {
+                                            _morningStartTime = time;
+                                          });
+                                        }
+                                      },
                                       child: Container(
                                         padding: const EdgeInsets.all(16),
                                         decoration: BoxDecoration(
@@ -916,7 +926,17 @@ class _EditBusPageState extends State<EditBusPage> {
                                 children: [
                                   Expanded(
                                     child: InkWell(
-                                      onTap: null,
+                                      onTap: () async {
+                                        final time = await showTimePicker(
+                                          context: context,
+                                          initialTime: _afternoonStartTime ?? TimeOfDay.now(),
+                                        );
+                                        if (time != null) {
+                                          setState(() {
+                                            _afternoonStartTime = time;
+                                          });
+                                        }
+                                      },
                                       child: Container(
                                         padding: const EdgeInsets.all(16),
                                         decoration: BoxDecoration(
@@ -1061,7 +1081,7 @@ class _EditBusPageState extends State<EditBusPage> {
                                   ),
                                   const SizedBox(width: 15),
                                   ElevatedButton.icon(
-                                    onPressed: null,
+                                    onPressed: () => Navigator.pushReplacementNamed(context, '/buses'),
                                     icon: const Icon(Icons.cancel),
                                     label: const Text('Cancel'),
                                     style: ElevatedButton.styleFrom(
@@ -1121,15 +1141,15 @@ class _NavItemState extends State<_NavItem> {
         margin: const EdgeInsets.only(bottom: 10),
         decoration: BoxDecoration(
           color: widget.isActive
-              ? Colors.white.withOpacity(0.3)
+              ? Colors.white.withValues(alpha: 0.3)
               : _isHovered
-                  ? Colors.white.withOpacity(0.25)
+                  ? Colors.white.withValues(alpha: 0.25)
                   : Colors.transparent,
           borderRadius: BorderRadius.circular(8),
           boxShadow: _isHovered
               ? [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
+                    color: Colors.black.withValues(alpha: 0.1),
                     blurRadius: 8,
                     offset: const Offset(0, 2),
                   )

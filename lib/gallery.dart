@@ -3,6 +3,8 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:main_login/main.dart' as main_login;
+import 'dashboard.dart';
 
 class PhotoEntry {
   final int id;
@@ -320,7 +322,7 @@ class _PhotoGalleryPageState extends State<PhotoGalleryPage> {
         content: Text('Are you sure you want to delete "${photo.title}"?'),
         actions: [
           TextButton(
-            onPressed: null,
+            onPressed: () => Navigator.of(context).pop(),
             child: const Text('Cancel'),
           ),
           ElevatedButton(
@@ -375,7 +377,7 @@ class _PhotoGalleryPageState extends State<PhotoGalleryPage> {
                 icon: const Icon(Icons.arrow_back),
                 label: const Text('Back'),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black.withOpacity(0.7),
+                  backgroundColor: Colors.black.withValues(alpha: 0.7),
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16,
@@ -466,7 +468,7 @@ class _PhotoGalleryPageState extends State<PhotoGalleryPage> {
                       const SizedBox(width: 8),
                       IconButton(
                         icon: const Icon(Icons.close),
-                        onPressed: null,
+                        onPressed: () => Navigator.of(context).pop(),
                       ),
                     ],
                   ),
@@ -569,20 +571,42 @@ class _PhotoGalleryPageState extends State<PhotoGalleryPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           _BackButton(
-                            onTap: () => Navigator.pushReplacementNamed(
-                              context,
-                              '/dashboard',
-                            ),
+                            onTap: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => DashboardPage())),
                           ),
                           const SizedBox(height: 16),
                           _Header(
                             showMenuButton: !showSidebar,
                             onMenuTap: () =>
                                 _scaffoldKey.currentState?.openDrawer(),
-                            onLogout: () => ScaffoldMessenger.of(context)
-                                .showSnackBar(
-                              const SnackBar(content: Text('Logout tapped')),
-                            ),
+                            onLogout: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  title: const Text('Logout'),
+                                  content: const Text('Are you sure you want to logout?'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () => Navigator.pop(context),
+                                      child: const Text('Cancel'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                        // Navigate to main login page
+                                        Navigator.pushAndRemoveUntil(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => const main_login.LoginScreen(),
+                                          ),
+                                          (route) => false,
+                                        );
+                                      },
+                                      child: const Text('Logout', style: TextStyle(color: Colors.red)),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
                           ),
                           const SizedBox(height: 24),
                           _StatsOverview(stats: stats),
@@ -684,7 +708,7 @@ class _Sidebar extends StatelessWidget {
         gradient: gradient,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 20,
             offset: const Offset(2, 0),
           ),
@@ -732,42 +756,42 @@ class _Sidebar extends StatelessWidget {
                   _NavItem(
                     icon: '📊',
                     title: 'Dashboard',
-                    onTap: null,
+                    onTap: () => Navigator.pushReplacementNamed(context, '/dashboard'),
                   ),
                   _NavItem(
                     icon: '👥',
                     title: 'Students',
-                    onTap: null,
+                    onTap: () => Navigator.pushReplacementNamed(context, '/students'),
                   ),
                   _NavItem(
                     icon: '👨‍🏫',
                     title: 'Teachers',
-                    onTap: null,
+                    onTap: () => Navigator.pushReplacementNamed(context, '/teachers'),
                   ),
                   _NavItem(
                     icon: '🚌',
                     title: 'Buses',
-                    onTap: null,
+                    onTap: () => Navigator.pushReplacementNamed(context, '/buses'),
                   ),
                   _NavItem(
                     icon: '📅',
                     title: 'Events',
-                    onTap: null,
+                    onTap: () => Navigator.pushReplacementNamed(context, '/events'),
                   ),
                   _NavItem(
                     icon: '🔔',
                     title: 'Notifications',
-                    onTap: null,
+                    onTap: () => Navigator.pushReplacementNamed(context, '/notifications'),
                   ),
                   _NavItem(
                     icon: '📚',
                     title: 'Activities',
-                    onTap: null,
+                    onTap: () => Navigator.pushReplacementNamed(context, '/activities'),
                   ),
                   _NavItem(
                     icon: '🏆',
                     title: 'Awards',
-                    onTap: null,
+                    onTap: () => Navigator.pushReplacementNamed(context, '/awards'),
                   ),
                   _NavItem(
                     icon: '📸',
@@ -778,12 +802,12 @@ class _Sidebar extends StatelessWidget {
                   _NavItem(
                     icon: '🎓',
                     title: 'Admissions',
-                    onTap: null,
+                    onTap: () => Navigator.pushReplacementNamed(context, '/admissions'),
                   ),
                   _NavItem(
                     icon: '📅',
                     title: 'Calendar',
-                    onTap: null,
+                    onTap: () => Navigator.pushReplacementNamed(context, '/calendar'),
                   ),
                   _NavItem(
                     icon: '📋',
@@ -833,15 +857,15 @@ class _NavItemState extends State<_NavItem> {
         margin: const EdgeInsets.only(bottom: 10),
         decoration: BoxDecoration(
           color: widget.isActive
-              ? Colors.white.withOpacity(0.3)
+              ? Colors.white.withValues(alpha: 0.3)
               : _isHovered
-                  ? Colors.white.withOpacity(0.25)
+                  ? Colors.white.withValues(alpha: 0.25)
                   : Colors.transparent,
           borderRadius: BorderRadius.circular(12),
           boxShadow: _isHovered
               ? [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
+                    color: Colors.black.withValues(alpha: 0.1),
                     blurRadius: 8,
                     offset: const Offset(0, 2),
                   )
@@ -880,7 +904,7 @@ class _BackButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: null,
+      onPressed: onTap,
       style: ElevatedButton.styleFrom(
         backgroundColor: const Color(0xFF6C757D),
         foregroundColor: Colors.white,
@@ -921,7 +945,7 @@ class _Header extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.15),
+            color: Colors.black.withValues(alpha: 0.15),
             blurRadius: 15,
             offset: const Offset(0, 5),
           ),
@@ -934,7 +958,7 @@ class _Header extends StatelessWidget {
             children: [
               if (showMenuButton)
                 IconButton(
-                  onPressed: null,
+                  onPressed: onMenuTap,
                   icon: const Icon(Icons.menu, color: Colors.white),
                 ),
               const Column(
@@ -958,11 +982,11 @@ class _Header extends StatelessWidget {
             ],
           ),
           ElevatedButton.icon(
-            onPressed: null,
+            onPressed: onLogout,
             icon: const Icon(Icons.logout),
             label: const Text('Logout'),
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white.withOpacity(0.2),
+              backgroundColor: Colors.white.withValues(alpha: 0.2),
               foregroundColor: Colors.white,
             ),
           ),
@@ -1009,7 +1033,7 @@ class _StatCard extends StatelessWidget {
         border: Border.all(color: const Color(0xFFE0E0E0)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -1079,7 +1103,7 @@ class _AddPhotoSection extends StatelessWidget {
         border: Border.all(color: const Color(0xFFE0E0E0)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
@@ -1319,7 +1343,7 @@ class _SearchFilterSection extends StatelessWidget {
         border: Border.all(color: const Color(0xFFE0E0E0)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
@@ -1506,7 +1530,7 @@ class _PhotoCard extends StatelessWidget {
           border: Border.all(color: const Color(0xFFE0E0E0)),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 10,
               offset: const Offset(0, 4),
             ),
@@ -1552,7 +1576,7 @@ class _PhotoCard extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 10, vertical: 5),
                     decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.7),
+                      color: Colors.black.withValues(alpha: 0.7),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(

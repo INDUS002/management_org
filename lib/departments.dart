@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'dashboard.dart';
 
 class Department {
   final int id;
@@ -436,11 +437,11 @@ class _DepartmentsManagementPageState extends State<DepartmentsManagementPage> {
                                 tooltip: 'Export Data',
                               ),
                               ElevatedButton.icon(
-                                onPressed: () {}, 
+                                onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => DashboardPage())), 
                                 icon: const Icon(Icons.arrow_back, size: 16),
                                 label: const Text("Back to Dashboard"),
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.white.withOpacity(0.2),
+                                  backgroundColor: Colors.white.withValues(alpha: 0.2),
                                   foregroundColor: Colors.white,
                                   elevation: 0,
                                   padding: const EdgeInsets.symmetric(
@@ -639,7 +640,7 @@ class _DepartmentsManagementPageState extends State<DepartmentsManagementPage> {
                                     borderRadius: BorderRadius.circular(12),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Colors.black.withOpacity(0.05),
+                                        color: Colors.black.withValues(alpha: 0.05),
                                         blurRadius: 10,
                                         offset: const Offset(0, 2),
                                       ),
@@ -689,7 +690,7 @@ class _DepartmentsManagementPageState extends State<DepartmentsManagementPage> {
                                     borderRadius: BorderRadius.circular(12),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Colors.black.withOpacity(0.05),
+                                        color: Colors.black.withValues(alpha: 0.05),
                                         blurRadius: 10,
                                         offset: const Offset(0, 2),
                                       ),
@@ -859,15 +860,15 @@ class _NavItemState extends State<_NavItem> {
         margin: const EdgeInsets.only(bottom: 10),
         decoration: BoxDecoration(
           color: widget.isActive
-              ? Colors.white.withOpacity(0.3)
+              ? Colors.white.withValues(alpha: 0.3)
               : _isHovered
-                  ? Colors.white.withOpacity(0.25)
+                  ? Colors.white.withValues(alpha: 0.25)
                   : Colors.transparent,
           borderRadius: BorderRadius.circular(8),
           boxShadow: _isHovered
               ? [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
+                    color: Colors.black.withValues(alpha: 0.1),
                     blurRadius: 8,
                     offset: const Offset(0, 2),
                   )
@@ -921,7 +922,7 @@ class _StatCard extends StatelessWidget {
         border: Border.all(color: Colors.grey[200]!),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -1186,9 +1187,9 @@ class _QuickActionItem extends StatelessWidget {
         padding: const EdgeInsets.all(12),
         margin: const EdgeInsets.only(bottom: 10),
         decoration: BoxDecoration(
-          color: const Color(0xFF667EEA).withOpacity(0.1),
+          color: const Color(0xFF667EEA).withValues(alpha: 0.1),
           border: Border.all(
-            color: const Color(0xFF667EEA).withOpacity(0.2),
+            color: const Color(0xFF667EEA).withValues(alpha: 0.2),
           ),
           borderRadius: BorderRadius.circular(8),
         ),

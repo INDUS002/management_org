@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'dashboard.dart';
 
 class Activity {
   final int id;
@@ -163,7 +164,7 @@ class _ActivitiesManagementPageState extends State<ActivitiesManagementPage> {
   }
 
   void _editActivity(Activity activity) {
-    _showSnack('Navigating to edit page for ${activity.name}...');
+    Navigator.pushNamed(context, '/edit-activity', arguments: activity.id);
   }
 
   void _deleteActivity(Activity activity) {
@@ -199,7 +200,10 @@ class _ActivitiesManagementPageState extends State<ActivitiesManagementPage> {
   }
 
   void _addActivity() {
-    _showSnack('Navigating to add activity page...');
+    // Navigate to add activity page (can be created later)
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Add activity feature coming soon')),
+    );
   }
 
   void _showSnack(String message) {
@@ -294,7 +298,20 @@ class _ActivitiesManagementPageState extends State<ActivitiesManagementPage> {
               icon: item['icon']!,
               label: item['label']!,
               isActive: item['label'] == 'Activities',
-              onTap: () {},
+              onTap: () {
+                final routeMap = {
+                  'Dashboard': '/dashboard',
+                  'Teachers': '/teachers',
+                  'Students': '/students',
+                  'Buses': '/buses',
+                  'Activities': '/activities',
+                  'Events': '/events',
+                };
+                final route = routeMap[item['label']];
+                if (route != null) {
+                  Navigator.pushReplacementNamed(context, route);
+                }
+              },
             ),
         ],
       ),
@@ -404,7 +421,7 @@ class _ActivitiesManagementPageState extends State<ActivitiesManagementPage> {
                 Expanded(
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.7),
+                      color: Colors.white.withValues(alpha: 0.7),
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(color: const Color(0xFFE1E5E9), width: 2),
                     ),
@@ -442,7 +459,7 @@ class _ActivitiesManagementPageState extends State<ActivitiesManagementPage> {
                       borderRadius: BorderRadius.circular(10),
                       boxShadow: [
                         BoxShadow(
-                          color: const Color(0xFF51CF66).withOpacity(0.25),
+                          color: const Color(0xFF51CF66).withValues(alpha: 0.25),
                           blurRadius: 15,
                           offset: const Offset(0, 8),
                         ),
@@ -555,30 +572,34 @@ class _ActivitiesManagementPageState extends State<ActivitiesManagementPage> {
   }
 
   Widget _buildBackButton() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [Color(0xFF6C757D), Color(0xFF495057)],
+    return InkWell(
+      onTap: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => DashboardPage())),
+      borderRadius: BorderRadius.circular(8),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            colors: [Color(0xFF6C757D), Color(0xFF495057)],
+          ),
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              color: const Color(0xFF495057).withValues(alpha: 0.3),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
         ),
-        borderRadius: BorderRadius.circular(8),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0xFF495057).withValues(alpha: 0.3),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Row(
-        children: const [
-          Icon(Icons.arrow_back, color: Colors.white, size: 16),
-          SizedBox(width: 8),
-          Text(
-            'Back to Dashboard',
-            style: TextStyle(color: Colors.white, fontSize: 14),
-          ),
-        ],
+        child: const Row(
+          children: [
+            Icon(Icons.arrow_back, color: Colors.white, size: 16),
+            SizedBox(width: 8),
+            Text(
+              'Back to Dashboard',
+              style: TextStyle(color: Colors.white, fontSize: 14),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -777,16 +798,16 @@ class GlassContainer extends StatelessWidget {
           child: Container(
             padding: padding,
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.95),
+              color: Colors.white.withValues(alpha: 0.95),
               borderRadius: radius,
               border: Border(
                 right: drawRightBorder
-                    ? BorderSide(color: Colors.white.withOpacity(0.2))
+                    ? BorderSide(color: Colors.white.withValues(alpha: 0.2))
                     : BorderSide.none,
               ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
+                  color: Colors.black.withValues(alpha: 0.1),
                   blurRadius: 24,
                   offset: const Offset(2, 6),
                 ),
@@ -829,7 +850,7 @@ class _NavTile extends StatelessWidget {
                     colors: [Color(0xFF667EEA), Color(0xFF764BA2)],
                   )
                 : null,
-            color: isActive ? null : Colors.white.withOpacity(0.7),
+            color: isActive ? null : Colors.white.withValues(alpha: 0.7),
           ),
           child: Row(
             children: [
@@ -898,7 +919,7 @@ class _DetailItem extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.7),
+        color: Colors.white.withValues(alpha: 0.7),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
